@@ -2,6 +2,7 @@
 import express from 'express';
 import fs from 'fs';
 import dotenv from 'dotenv';
+import rateLimit from 'express-rate-limit';
 
 let counter = 0;
 
@@ -13,8 +14,20 @@ if (fs.existsSync('./counter.txt')) {
 const router = express.Router();
 dotenv.config();
 
+const loginLimiter = rateLimit({
+  windowMs: 60 * 1000,
+  max: 15,
+  standardHeaders: true,
+});
+
+const incrementLimiter = rateLimit({
+  windowMs: 24 * 60 * 60 * 1000,
+  max: 1,
+  standardHeaders: true,
+});
+
 // Routes
-router.get('/counter/increment', (req, res) => {
+router.get('/counter/increment', incrementLimiter, (req, res) => {
   counter++;
   fs.writeFileSync('./counter.txt', String(counter));
   return res.sendStatus(200);
@@ -39,7 +52,7 @@ router.put('/counter/set', (req, res) => {
   }
 });
 
-router.post('/login', (req, res) => {
+router.post('/login', loginLimiter, (req, res) => {
   const code = req.body.code;
 
   if (code == process.env.CODE) {

@@ -7,6 +7,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const fs_1 = __importDefault(require("fs"));
 const dotenv_1 = __importDefault(require("dotenv"));
+const express_rate_limit_1 = __importDefault(require("express-rate-limit"));
 let counter = 0;
 if (fs_1.default.existsSync('./counter.txt')) {
     counter = Number(fs_1.default.readFileSync('./counter.txt', 'utf-8'));
@@ -14,8 +15,18 @@ if (fs_1.default.existsSync('./counter.txt')) {
 // Setup
 const router = express_1.default.Router();
 dotenv_1.default.config();
+const loginLimiter = (0, express_rate_limit_1.default)({
+    windowMs: 60 * 1000,
+    max: 15,
+    standardHeaders: true,
+});
+const incrementLimiter = (0, express_rate_limit_1.default)({
+    windowMs: 24 * 60 * 60 * 1000,
+    max: 1,
+    standardHeaders: true,
+});
 // Routes
-router.get('/counter/increment', (req, res) => {
+router.get('/counter/increment', incrementLimiter, (req, res) => {
     counter++;
     fs_1.default.writeFileSync('./counter.txt', String(counter));
     return res.sendStatus(200);
@@ -25,7 +36,6 @@ router.get('/counter/get', (req, res) => {
 });
 router.put('/counter/set', (req, res) => {
     const code = req.body.code;
-    console.log(req.body);
     if (!Number.isInteger(Number(req.body.newCounter)))
         return res.sendStatus(400);
     if (code == process.env.CODE) {
@@ -37,7 +47,7 @@ router.put('/counter/set', (req, res) => {
         return res.sendStatus(401);
     }
 });
-router.post('/login', (req, res) => {
+router.post('/login', loginLimiter, (req, res) => {
     const code = req.body.code;
     if (code == process.env.CODE) {
         return res.sendStatus(200);
