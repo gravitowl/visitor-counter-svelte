@@ -27,8 +27,6 @@ router.get('/counter/get', (req, res) => {
 router.put('/counter/set', (req, res) => {
   const code = req.body.code;
 
-  console.log(req.body);
-
   if (!Number.isInteger(Number(req.body.newCounter)))
     return res.sendStatus(400);
 

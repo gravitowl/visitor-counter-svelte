@@ -20,7 +20,6 @@
 
     if (res.status == 200) {
       const json = await res.json();
-      console.log(json);
       counter.set(json.res);
       hasIncremented.set(true);
     }
