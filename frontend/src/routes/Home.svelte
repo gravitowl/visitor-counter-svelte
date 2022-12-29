@@ -16,7 +16,7 @@
     if (!$hasIncremented) {
       await fetch(baseLink + "/counter/increment");
     }
-    const res = await fetch(baseLink + "/api/counter/get");
+    const res = await fetch(baseLink + "/counter/get");
 
     if (res.status == 200) {
       const json = await res.json();
@@ -26,6 +26,8 @@
     }
 
     wrapper.style.opacity = 100;
+
+    document.title = "MentaalAchtergesteld | Home";
   });
 </script>
 

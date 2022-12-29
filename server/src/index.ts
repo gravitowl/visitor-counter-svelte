@@ -7,7 +7,11 @@ import path from 'path';
 
 const app = express();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: 'https://mentaalachtergesteld.nl',
+  }),
+);
 app.use(express.json());
 
 // Routes
@@ -21,9 +25,9 @@ app.get('/assets/index-c7a3871e.js', (req, res) => {
   );
 });
 
-app.get('/assets/index-62dad83f.css', (req, res) => {
+app.get('/assets/:file', (req, res) => {
   res.sendFile(
-    path.join(__dirname, '../..', 'frontend/dist/assets/index-62dad83f.css'),
+    path.join(__dirname, '../..', 'frontend/dist/assets', req.params.file),
   );
 });
 
@@ -35,6 +39,6 @@ app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, '../..', 'frontend/dist/index.html'));
 });
 
-app.listen(3000, () => {
-  console.log('Listening on port 3000!');
+app.listen(process.env.PORT, () => {
+  console.log(`Listening on port ${process.env.PORT}!`);
 });

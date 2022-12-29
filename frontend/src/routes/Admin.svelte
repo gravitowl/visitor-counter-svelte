@@ -10,6 +10,7 @@
 
   onMount(() => {
     if ($code == "") navigate("/login");
+    document.title = "MentaalAchtergesteld | Admin";
   });
 
   const setCounter = async () => {

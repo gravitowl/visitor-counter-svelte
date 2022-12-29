@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { onMount } from "svelte";
   import { navigate } from "svelte-routing";
   import { baseLink } from "../lib/apiLinks";
   import { code } from "../lib/AuthStore";
@@ -7,7 +8,7 @@
   let error;
 
   const login = async () => {
-    const res = await fetch(baseLink + "/api/login", {
+    const res = await fetch(baseLink + "/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -25,6 +26,10 @@
       error.style.opacity = 100;
     }
   };
+
+  onMount(() => {
+    document.title = "MentaalAchtergesteld | Login";
+  });
 </script>
 
 <div class="background">
