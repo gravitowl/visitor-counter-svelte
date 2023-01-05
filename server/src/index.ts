@@ -49,7 +49,7 @@ app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, '../..', 'frontend/dist/index.html'));
 });
 
-app.listen(process.env.PORT, () => {
+app.listen(8080, () => {
   console.log(`Listening on port ${process.env.PORT}!`);
 });
 
