@@ -37,4 +37,4 @@ app.get('/*', (req, res) => {
 app.listen(process.env.PORT, () => {
     console.log(`Listening on port ${process.env.PORT}!`);
 });
-https_1.default.createServer(options, app).listen(8443);
+https_1.default.createServer(options, app).listen(process.env.PORT);
