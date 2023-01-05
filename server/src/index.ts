@@ -1,11 +1,18 @@
 // Imports
+import https from 'https';
+import fs from 'fs';
 import express from 'express';
 import cors from 'cors';
 import path from 'path';
+import helmet from 'helmet';
 
 // Setup
 
 const app = express();
+const options = {
+  cert: fs.readFileSync(path.join(__dirname, '..', 'sslcert/fullchain.pem')),
+  key: fs.readFileSync(path.join(__dirname, '..', 'sslcert/privkey.pem')),
+};
 
 app.use(
   cors({
@@ -13,6 +20,8 @@ app.use(
   }),
 );
 app.use(express.json());
+app.use(helmet());
+// app.use(express.static(path.join(__dirname, '../..', 'frontend/dist')));
 
 // Routes
 import Api from './routes/api';
@@ -32,3 +41,5 @@ app.get('/*', (req, res) => {
 app.listen(process.env.PORT, () => {
   console.log(`Listening on port ${process.env.PORT}!`);
 });
+
+https.createServer(options, app).listen(8443);
