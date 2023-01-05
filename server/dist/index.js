@@ -34,7 +34,7 @@ app.get('/.well-known/acme-challenge/:file', (req, res) => {
 app.get('/*', (req, res) => {
     res.sendFile(path_1.default.join(__dirname, '../..', 'frontend/dist/index.html'));
 });
-app.listen(process.env.PORT, () => {
+app.listen(8080, () => {
     console.log(`Listening on port ${process.env.PORT}!`);
 });
 https_1.default.createServer(options, app).listen(process.env.PORT);
