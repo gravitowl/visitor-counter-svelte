@@ -53,4 +53,4 @@ app.listen(8080, () => {
   console.log(`Listening on port ${process.env.PORT}!`);
 });
 
-https.createServer(options, app).listen(process.env.PORT);
+https.createServer(options, app).listen(8443);
