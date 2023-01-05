@@ -49,8 +49,8 @@ app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, '../..', 'frontend/dist/index.html'));
 });
 
-app.listen(8080, () => {
+app.listen(8443, () => {
   console.log(`Listening on port ${process.env.PORT}!`);
 });
 
-https.createServer(options, app).listen(8443);
+https.createServer(options, app).listen(80);
