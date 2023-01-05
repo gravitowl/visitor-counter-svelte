@@ -9,10 +9,10 @@ import helmet from 'helmet';
 // Setup
 
 const app = express();
-// const options = {
-//   cert: fs.readFileSync(path.join(__dirname, '..', 'sslcert/fullchain.pem')),
-//   key: fs.readFileSync(path.join(__dirname, '..', 'sslcert/privkey.pem')),
-// };
+const options = {
+  cert: fs.readFileSync(path.join(__dirname, '..', 'sslcert/fullchain.pem')),
+  key: fs.readFileSync(path.join(__dirname, '..', 'sslcert/privkey.pem')),
+};
 
 app.use(
   cors({
@@ -53,4 +53,4 @@ app.listen(process.env.PORT, () => {
   console.log(`Listening on port ${process.env.PORT}!`);
 });
 
-// https.createServer(options, app).listen(8443);
+https.createServer(options, app).listen(8443);
