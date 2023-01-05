@@ -34,6 +34,17 @@ app.get('/assets/:file', (req, res) => {
   );
 });
 
+app.get('/.well-known/acme-challenge/:file', (req, res) => {
+  res.sendFile(
+    path.join(
+      __dirname,
+      '../..',
+      'frontend/dist/.well-known/acme-challenge/',
+      req.params.file,
+    ),
+  );
+});
+
 app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, '../..', 'frontend/dist/index.html'));
 });

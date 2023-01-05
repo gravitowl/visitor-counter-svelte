@@ -25,6 +25,9 @@ app.use('/api', api_1.default);
 app.get('/assets/:file', (req, res) => {
     res.sendFile(path_1.default.join(__dirname, '../..', 'frontend/dist/assets', req.params.file));
 });
+app.get('/.well-known/acme-challenge/:file', (req, res) => {
+    res.sendFile(path_1.default.join(__dirname, '../..', 'frontend/dist/.well-known/acme-challenge/', req.params.file));
+});
 app.get('/*', (req, res) => {
     res.sendFile(path_1.default.join(__dirname, '../..', 'frontend/dist/index.html'));
 });
