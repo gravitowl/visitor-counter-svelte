@@ -1,1 +1,1 @@
-export const baseLink = "http://mentaalachtergesteld.nl/api";
+export const baseLink = "https://mentaalachtergesteld.nl/api";
