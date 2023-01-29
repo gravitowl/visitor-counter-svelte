@@ -1,56 +1,29 @@
 // Imports
-import https from 'https';
-import fs from 'fs';
 import express from 'express';
 import cors from 'cors';
 import path from 'path';
-import helmet from 'helmet';
 
 // Setup
 
 const app = express();
-const options = {
-  cert: fs.readFileSync(path.join(__dirname, '..', 'sslcert/fullchain.pem')),
-  key: fs.readFileSync(path.join(__dirname, '..', 'sslcert/privkey.pem')),
-};
 
 app.use(
   cors({
-    origin: 'http://mentaalachtergesteld.nl',
+    origin: 'http://127.0.0.1',
   }),
 );
 app.use(express.json());
-app.use(helmet());
-// app.use(express.static(path.join(__dirname, '../..', 'frontend/dist')));
 
 // Routes
 import Api from './routes/api';
 
 app.use('/api', Api);
+app.use(express.static(path.join(__dirname, '../..', 'frontend/dist')));
 
-app.get('/assets/:file', (req, res) => {
-  res.sendFile(
-    path.join(__dirname, '../..', 'frontend/dist/assets', req.params.file),
-  );
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, '../..', 'frontend/dist', 'index.html'));
 });
 
-app.get('/.well-known/acme-challenge/:file', (req, res) => {
-  res.sendFile(
-    path.join(
-      __dirname,
-      '../..',
-      'frontend/dist/.well-known/acme-challenge/',
-      req.params.file,
-    ),
-  );
-});
-
-app.get('/*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../..', 'frontend/dist/index.html'));
-});
-
-app.listen(process.env.PORT, () => {
+app.listen(Number(process.env.PORT), '127.0.0.1', () => {
   console.log(`Listening on port ${process.env.PORT}!`);
 });
-
-https.createServer(options, app).listen(443);
