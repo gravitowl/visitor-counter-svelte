@@ -21,6 +21,7 @@ app.use(express_1.default.static(path_1.default.join(__dirname, '../..', 'fronte
 app.get('/', (req, res) => {
     res.sendFile(path_1.default.join(__dirname, '../..', 'frontend/dist', 'index.html'));
 });
+app.get('/ip', (request, response) => response.send(request.ip));
 app.listen(Number(process.env.PORT), '127.0.0.1', () => {
     console.log(`Listening on port ${process.env.PORT}!`);
 });

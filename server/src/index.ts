@@ -25,6 +25,8 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../..', 'frontend/dist', 'index.html'));
 });
 
+app.get('/ip', (request, response) => response.send(request.ip));
+
 app.listen(Number(process.env.PORT), '127.0.0.1', () => {
   console.log(`Listening on port ${process.env.PORT}!`);
 });
