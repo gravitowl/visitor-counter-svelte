@@ -21,6 +21,10 @@ import Api from './routes/api';
 app.use('/api', Api);
 app.use(express.static(path.join(__dirname, '../..', 'frontend/dist')));
 
+app.get('/ip', (req, res) => {
+  return res.send(req.headers['x-forwarded-for']);
+});
+
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../..', 'frontend/dist', 'index.html'));
 });
