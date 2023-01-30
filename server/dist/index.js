@@ -9,7 +9,7 @@ const cors_1 = __importDefault(require("cors"));
 const path_1 = __importDefault(require("path"));
 // Setup
 const app = (0, express_1.default)();
-app.set('trust proxy', 2);
+app.set('trust proxy', 3);
 app.use((0, cors_1.default)({
     origin: 'http://127.0.0.1',
 }));
