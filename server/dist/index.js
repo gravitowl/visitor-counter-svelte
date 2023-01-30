@@ -19,6 +19,7 @@ const api_1 = __importDefault(require("./routes/api"));
 app.use('/api', api_1.default);
 app.use(express_1.default.static(path_1.default.join(__dirname, '../..', 'frontend/dist')));
 app.get('/ip', (req, res) => {
+    console.log(req.headers);
     return res.send(req.headers['x-forwarded-for']);
 });
 app.get('/', (req, res) => {
