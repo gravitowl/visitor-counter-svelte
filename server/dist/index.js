@@ -9,7 +9,7 @@ const cors_1 = __importDefault(require("cors"));
 const path_1 = __importDefault(require("path"));
 // Setup
 const app = (0, express_1.default)();
-app.set('trust proxy', 3);
+app.enable('trust proxy');
 app.use((0, cors_1.default)({
     origin: 'http://127.0.0.1',
 }));
@@ -21,7 +21,6 @@ app.use(express_1.default.static(path_1.default.join(__dirname, '../..', 'fronte
 app.get('/', (req, res) => {
     res.sendFile(path_1.default.join(__dirname, '../..', 'frontend/dist', 'index.html'));
 });
-app.get('/ip', (request, response) => response.send(request.ip));
 app.listen(Number(process.env.PORT), '127.0.0.1', () => {
     console.log(`Listening on port ${process.env.PORT}!`);
 });
