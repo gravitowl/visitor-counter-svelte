@@ -6,7 +6,7 @@ import path from 'path';
 // Setup
 
 const app = express();
-app.set('trust proxy', 2);
+app.set('trust proxy', 3);
 
 app.use(
   cors({
