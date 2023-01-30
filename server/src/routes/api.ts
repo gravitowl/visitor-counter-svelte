@@ -14,17 +14,37 @@ if (fs.existsSync('./counter.txt')) {
 const router = express.Router();
 dotenv.config();
 
+// const loginLimiter = rateLimit({
+//   windowMs: 60 * 1000,
+//   max: 15,
+//   standardHeaders: true,
+// });
+
 const loginLimiter = rateLimit({
   windowMs: 60 * 1000,
   max: 15,
-  standardHeaders: true,
+  message: 'Too many requests, please try again later',
+  headers: true,
+  keyGenerator: function (req) {
+    return (req.headers['x-forwarded-for'] || req.ip) as string;
+  },
 });
 
 const incrementLimiter = rateLimit({
   windowMs: 24 * 60 * 60 * 1000,
   max: 1,
-  standardHeaders: true,
+  message: 'Too many requests, please try again later',
+  headers: true,
+  keyGenerator: function (req) {
+    return (req.headers['x-forwarded-for'] || req.ip) as string;
+  },
 });
+
+// const incrementLimiter = rateLimit({
+//   windowMs: 24 * 60 * 60 * 1000,
+//   max: 1,
+//   standardHeaders: true,
+// });
 
 // Routes
 router.get('/counter/increment', incrementLimiter, (req, res) => {
