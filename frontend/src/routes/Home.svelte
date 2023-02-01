@@ -39,7 +39,7 @@
       <a href="https://twitter.com/Achtergesteld">
         <Icon data={faTwitter} scale="2.5" />
       </a>
-      <a href="https://discord.gg/x5JuQsDU">
+      <a href="https://discord.gg/DmcyDmhCrV">
         <Icon data={faDiscord} scale="2.5" />
       </a>
       <a href="https://twitch.tv/MentaalAchtergesteld">
